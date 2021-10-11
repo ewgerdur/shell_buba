@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirects_processing.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wgerdur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 19:43:05 by wgerdur           #+#    #+#             */
+/*   Updated: 2021/10/11 19:43:07 by wgerdur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	cycle_read(t_mish_save *mish, t_buba *lst, char *stop)
@@ -107,7 +119,7 @@ int	redir_pars(t_mish_save *mish, t_buba *lst, int j)
 
 	i = 0;
 	lst->fork = j;
-	while (lst->redir[i] && exit_stat == 0)
+	while (lst->redir[i])
 	{
 		if (lst->redir[i][0] == '<' && lst->redir[i][1] != '<')
 			red_check_for_pars(mish, lst, i, 1);
@@ -119,7 +131,7 @@ int	redir_pars(t_mish_save *mish, t_buba *lst, int j)
 			red_check_for_pars(mish, lst, i, 4);
 		i++;
 	}
-	if (exit_stat == 0)
+	if (g_es == 0)
 		redir_dup(lst);
-	return (exit_stat);
+	return (g_es);
 }

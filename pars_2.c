@@ -23,7 +23,7 @@ int	redir_exec(t_mish_save *mish, char *redir, int count_redir)
 	return (count_redir);
 }
 
-int	pure_pars(t_mish_save *mish, int *i, char *tmp, int count_args)
+int	ca_pars(t_mish_save *mish, int *i, char *tmp, int count_args)
 {
 	int		j;
 	char	*arg;
@@ -55,8 +55,6 @@ void	struct_lists_creating(t_mish_save *mish, t_buba **head, int count_redir,
 			sizeof(char *) * (count_redir + 1));
 	mish->args = (char **)ft_realloc(mish->args, sizeof(char *) * (count_args
 				+ 1));
-	/*mish->redirs = (char **)ft_realloc(mish->redirs,
-			sizeof(char *) * (count_redir + 1));*/
 	mish->redirs[count_redir] = NULL;
 	mish->args[count_args] = NULL;
 	ft_lstadd_back_mish(head, ft_lstnew_mish(mish->args, mish->redirs, mish->args_lst));
@@ -71,8 +69,7 @@ char	**ft_lst_get_arrayf(t_list *lst)
 	arr = ft_malloc_x(sizeof(*arr) * size_array);
 	if (!arr)
 		return (NULL);
-	//arr[--size_array] = NULL;
-	arr[size_array-1] = NULL;
+	arr[size_array - 1] = NULL;
 	size_array = 0;
 	while (lst)
 	{

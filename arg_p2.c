@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arg_p2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wgerdur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 19:38:32 by wgerdur           #+#    #+#             */
+/*   Updated: 2021/10/11 19:38:34 by wgerdur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*free_sle(char *str, int j, int *i)
@@ -58,11 +70,6 @@ char	*parser(t_mish_save *mish, char *str)
 		}
 		if (str[i] == '\\')
 			str = ft_slesh(str, &i);
-		/*if (str[i] == '\"')
-		{
-			str = ft_gap2(mish, str, &i);
-			i = -1;
-		}*/
 		if (str[i] == '$' && ft_strlen(str) > 1)
 		{
 			str = ft_dollar(mish, str, 0, &i);

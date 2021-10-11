@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quot.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wgerdur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 19:42:32 by wgerdur           #+#    #+#             */
+/*   Updated: 2021/10/11 19:42:35 by wgerdur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*quot(char *str, int i)
@@ -27,10 +39,11 @@ int	quot_pars(t_mish_save *mish, int *i, char *tmp, int count_args)
 	if (check_spaces(pars))
 	{
 		pars = quot(pars, 0);
-		mish->args = (char **)ft_realloc(mish->args, sizeof(char *) * (count_args
-					+ 1));
+		mish->args = (char **)ft_realloc(mish->args,
+				sizeof(char *) * (count_args + 1));
 		mish->args[count_args] = ft_strdup(pars);
-		ft_lstadd_back_args(&mish->args_lst, ft_lstnew_args(ft_strdup(pars), 1));
+		ft_lstadd_back_args(&mish->args_lst,
+			ft_lstnew_args(ft_strdup(pars), 1));
 		free(pars);
 		return (1);
 	}
@@ -51,10 +64,12 @@ int	quot2_pars(t_mish_save *mish, int *i, char *tmp, int count_args)
 	if (check_spaces(buba_str))
 	{
 		buba_str = quot2(mish, buba_str, 0);
-		mish->args = (char **)ft_realloc(mish->args, sizeof(char *) * (count_args
+		mish->args = (char **)ft_realloc(mish->args,
+				sizeof(char *) * (count_args
 					+ 1));
 		mish->args[count_args] = ft_strdup(buba_str);
-		ft_lstadd_back_args(&mish->args_lst, ft_lstnew_args(ft_strdup(buba_str), 1));
+		ft_lstadd_back_args(&mish->args_lst,
+			ft_lstnew_args(ft_strdup(buba_str), 1));
 		free(buba_str);
 		return (1);
 	}
@@ -85,7 +100,8 @@ char	*quot2(t_mish_save *mish, char *str, int i)
 	return (buba_str);
 }
 
-void	quot_check(const char *str, int i, unsigned int *quot_num, unsigned int *quot2_num)
+void	quot_check(const char *str, int i, unsigned int *quot_num,
+	unsigned int *quot2_num)
 {
 	if (str[i] == '\'' && *quot2_num % 2 == 0)
 	{

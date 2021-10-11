@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   buba.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wgerdur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 19:39:43 by wgerdur           #+#    #+#             */
+/*   Updated: 2021/10/11 19:39:45 by wgerdur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-#include <stdio.h>
 
 int	g_status;
 
@@ -27,19 +38,4 @@ void	close_dups(t_mish_save *mish)
 		err(0, 0);
 	close(mish->mish_in);
 	close(mish->mish_out);
-}
-
-void	make_lvl(t_mish_save *mish)
-{
-	char	*lvl;
-	char	*tmp;
-	char	*new;
-
-	lvl = find_path("SHLVL", mish->env_mish);
-	tmp = ft_itoa(ft_atoi(lvl) + 1);
-	new = ft_strjoin("SHLVL=", tmp);
-	new_envp(mish, new);
-	free(lvl);
-	free(tmp);
-	free(new);
 }

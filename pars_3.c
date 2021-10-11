@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pars_3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wgerdur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 20:09:04 by wgerdur           #+#    #+#             */
+/*   Updated: 2021/10/11 20:09:06 by wgerdur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_putstr_fd(char *str, int fd)
@@ -31,14 +43,24 @@ int	k_search(char c)
 	return (0);
 }
 
-void	begin_main(t_mish_save *mish, char **env)
+void	begin_main(t_mish_save *mish, char **env, char **argv, int argc)
 {
-	(void)env;
-	exit_stat = 0;
+	char	*lvl;
+	char	*tmp;
+	char	*new;
+
+	void_aae(env, argv, argc);
+	g_es = 0;
 	mish->stat_buba = 0;
 	set_env(mish, env);
 	mish->env_mish = ft_lst_get_arrayf(mish->env_lst);
-	make_lvl(mish);
+	lvl = find_path("SHLVL", mish->env_mish);
+	tmp = ft_itoa(ft_atoi(lvl) + 1);
+	new = ft_strjoin("SHLVL=", tmp);
+	new_envp(mish, new);
+	free(lvl);
+	free(tmp);
+	free(new);
 	save_dups(mish);
 	close_dups(mish);
 	signal_first();

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wgerdur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 19:31:23 by wgerdur           #+#    #+#             */
+/*   Updated: 2021/10/11 19:31:32 by wgerdur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	pipe_err(char *str, char *error_message, int err)
@@ -21,9 +33,9 @@ void	err(char *str, char *error_message)
 	else
 		perror(error_message);
 	if (errno)
-		exit_stat = errno;
+		g_es = errno;
 	else
-		exit_stat = 1;
+		g_es = 1;
 }
 
 void	redir_err(t_buba *lst, char *file_name)
@@ -39,22 +51,13 @@ void	redir_err(t_buba *lst, char *file_name)
 
 void	synt_err(const char *str, int i)
 {
-	if ((str[i] == ';' && str[i + 1] == ';') || (str[i] == '|' && str[i + 1] == ';')
+	if ((str[i] == ';' && str[i + 1] == ';')
+		|| (str[i] == '|' && str[i + 1] == ';')
 		|| (str[i] == ';' && str[i + 1] == '|'))
 	{
-		ft_putstr_fd("syntax error near unexpected token `;;'\n", 2);
-		exit_stat = 258;
+		ft_putstr_fd("parse error near `;;'\n", 2);
+		g_es = 258;
 	}
-	/*if (str[i] == '|' && str[i + 1] == ';')
-	{
-		ft_putstr_fd("syntax error near unexpected token `;'\n", 2);
-		exit_stat = 258;
-	}
-	if (str[i] == ';' && str[i + 1] == '|')
-	{
-		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
-		exit_stat = 258;
-	}*/
 }
 
 void	quot_err(const char *str, int i, unsigned int quot_num,
@@ -63,11 +66,11 @@ void	quot_err(const char *str, int i, unsigned int quot_num,
 	if (quot_num % 2 != 0 || quot2_num % 2 != 0)
 	{
 		ft_putstr_fd("Incorrect number of quotes or dquotes\n", 2);
-		exit_stat = 1;
+		g_es = 1;
 	}
 	if (str[i - 1] == '\\')
 	{
 		ft_putstr_fd("Slash is on the end of the line\n", 2);
-		exit_stat = 1;
+		g_es = 1;
 	}
 }

@@ -11,7 +11,7 @@ LIBFT			=	libft
 OBJS 			=	$(SRCS:.c=.o)
 LIBS			=	libft/libft.a
 CC				=	@gcc -g
-READLINE = -lreadline $(LDFLAGS) $(CPPFLAGS)
+READLINE = -lreadline
 
 
 all: $(NAME)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wgerdur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 20:08:13 by wgerdur           #+#    #+#             */
+/*   Updated: 2021/10/11 20:08:16 by wgerdur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <fcntl.h>
@@ -8,9 +20,10 @@
 # include <readline/history.h>
 # include "libft/libft.h"
 # include <memory.h>
+# include <fcntl.h>
 # include "errno.h"
 
-int	exit_stat;
+int	g_es;
 
 typedef struct s_lst_args
 {
@@ -29,8 +42,8 @@ typedef struct s_buba
 	int					out;
 	int					fork;
 	pid_t				pid;
-	struct s_buba	*prev;
-	struct s_buba	*next;
+	struct s_buba		*prev;
+	struct s_buba		*next;
 }						t_buba;
 
 typedef struct s_mish_save {
@@ -79,16 +92,17 @@ int			compare_strings(char *str, char *tmp);
 t_list		*delete_lst(t_list **lst, char *found);
 char		**make_arr_from_lst(t_list *lst);
 void		remove_elem(t_mish_save *mish, char *found);
-t_buba	*ft_lstnew_mish(char **args, char **redirs,
+t_buba		*ft_lstnew_mish(char **args, char **redirs,
 				t_lst_args *args_lst);
 void		ft_lstadd_back_mish(t_buba **lst, t_buba *new);
-t_buba	*ft_lstlast_mish(t_buba *lst);
+t_buba		*ft_lstlast_mish(t_buba *lst);
 void		clear_lst(t_buba **lst);
 void		fr_lst(t_list *lst);
 
 void		signal_child(void);
 void		signal_first(void);
 void		signal_pipes(void);
+void		void_aae(char **env, char **argv, int argc);
 void		ft_signal_pipes(int s);
 
 void		ft_arrfree(char **arr);
@@ -108,9 +122,10 @@ int			char_in_string(char ch, char *chars);
 int			check_spaces(const char *str);
 int			slash(const char *tmp, int *i);
 char		*free_strings(char *tmp, char *str);
-char		*init_variables_pars(t_mish_save *mish, char *str, int *i, int *count_args);
+char		*init_variables_pars(t_mish_save *mish, char *str,
+				int *i, int *count_args);
 char		*ft_sle2(t_mish_save *mish, char *str, int *i);
-int		ft_start_pars1(t_mish_save *mish, char *str, t_buba **head);
+int			ft_start_pars1(t_mish_save *mish, char *str, t_buba **head);
 int			k_search(char c);
 void		question_mark(t_mish_save *mish);
 char		*ft_sle(char *str, int *i);
@@ -122,23 +137,24 @@ void		exec_binary(t_mish_save *mish, t_buba *lst);
 void		ft_execut(t_mish_save *mish, t_buba *lst);
 void		last_exec(t_mish_save *mish, t_buba *lst);
 void		pid_waiting(t_buba *start, t_buba *lst);
-void		struct_lists_creating(t_mish_save *mish, t_buba **head, int count_redir,
-				int count_args);
-int			pure_pars(t_mish_save *mish, int *i, char *tmp, int count_args);
+void		struct_lists_creating(t_mish_save *mish, t_buba **head,
+				int count_redir, int count_args);
+int			ca_pars(t_mish_save *mish, int *i, char *tmp, int count_args);
 int			quot2_pars(t_mish_save *mish, int *i, char *tmp, int count_args);
 int			redir_parser(t_mish_save *mish, int *i, char *tmp, int count_redir);
 void		*ft_realloc(void *ptr, size_t size);
 t_lst_args	*ft_lstnew_args(char *arg, int is_parsed);
 void		ft_lstadd_back_args(t_lst_args **lst, t_lst_args *new);
 t_lst_args	*ft_lstlast_args(t_lst_args *lst);
-void		begin_main(t_mish_save *mish, char **env);
+void		begin_main(t_mish_save *mish, char **env, char **argv, int argc);
 char		*ft_dollar(t_mish_save *mish, char *str, int j, int *i);
 void		make_lvl(t_mish_save *mish);
 void		free_lst_mish(t_mish_save *mish, char *str);
 void		clear_mem(t_buba *lst);
 void		get_arr(t_buba *el);
 char		**ft_lst_get_arrayf(t_list *lst);
-int	quot_pars(t_mish_save *mish, int *i, char *tmp, int count_args);
-void	quot_check(const char *str, int i, unsigned int *quot_num, unsigned int *quot2_num);
+int			quot_pars(t_mish_save *mish, int *i, char *tmp, int count_args);
+void		quot_check(const char *str, int i,
+				unsigned int *quot_num, unsigned int *quot2_num);
 
 #endif

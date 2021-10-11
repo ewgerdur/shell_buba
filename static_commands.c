@@ -1,20 +1,19 @@
 #include "minishell.h"
 
-int	pwd(void)
+int	pwd(t_mish_save *mish)
 {
-	char	*pwd;
+	t_list	*envp;
 
-	pwd = ft_calloc(4096, 1);
-	if (getcwd(pwd, 4096))
+	envp = mish->env_lst;
+	while (envp)
 	{
-		ft_putstr_fd(pwd, 1);
-		free(pwd);
-		write(1, "\n", 1);
-		return (0);
+		if (!ft_strncmp(envp->content, "PWD=", 4))
+		{
+			ft_putstr_fd(envp->content + 4, 1);
+			ft_putstr_fd("\n", 1);
+		}
+		envp = envp->next;
 	}
-	ft_putstr_fd(strerror(errno), 2);
-	write(2, "\n", 2);
-	free(pwd);
 	return (1);
 }
 
@@ -60,17 +59,17 @@ int	name_check(t_buba *lst)
 void	name_exec_check(t_mish_save *mish, t_buba *lst)
 {
 	if (!ft_strncmp(lst->args[0], "echo", ft_strlen(lst->args[0])))
-		exit_stat = echo_handler(lst->args);
+		g_es = echo_handler(lst->args);
 	else if (!ft_strncmp(lst->args[0], "cd", ft_strlen(lst->args[0])))
-		exit_stat = cd(mish, lst->args, mish->env_mish);
+		g_es = cd(mish, lst->args, mish->env_mish);
 	else if (!ft_strncmp(lst->args[0], "pwd", ft_strlen(lst->args[0])))
-		exit_stat = pwd();
+		g_es = pwd(mish);
 	else if (!ft_strncmp(lst->args[0], "export", ft_strlen(lst->args[0])))
-		exit_stat = export(mish, lst->args);
+		g_es = export(mish, lst->args);
 	else if (!ft_strncmp(lst->args[0], "unset", ft_strlen(lst->args[0])))
-		exit_stat = unset(mish, lst->args);
+		g_es = unset(mish, lst->args);
 	else if (!ft_strncmp(lst->args[0], "exit", ft_strlen(lst->args[0])))
-		exit_stat = exit_mish(mish, lst->args);
+		g_es = exit_mish(mish, lst->args);
 	else if (!ft_strncmp(lst->args[0], "env", ft_strlen(lst->args[0])))
-		exit_stat = env(mish);
+		g_es = env(mish);
 }

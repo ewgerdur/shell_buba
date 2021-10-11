@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_updating.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wgerdur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 19:30:09 by wgerdur           #+#    #+#             */
+/*   Updated: 2021/10/11 19:30:15 by wgerdur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	sort_env(t_mish_save *mish)
@@ -5,7 +17,7 @@ void	sort_env(t_mish_save *mish)
 	int		len;
 	int		i;
 	int		j;
-	char	*buf;
+	char	*buffer;
 
 	i = 0;
 	len = ft_arrlen(mish->env_mish);
@@ -16,9 +28,9 @@ void	sort_env(t_mish_save *mish)
 		{
 			if (compare_strings(mish->env_mish[j], mish->env_mish[j + 1]) > 0)
 			{
-				buf = mish->env_mish[j];
+				buffer = mish->env_mish[j];
 				mish->env_mish[j] = mish->env_mish[j + 1];
-				mish->env_mish[j + 1] = buf;
+				mish->env_mish[j + 1] = buffer;
 			}
 			j++;
 		}

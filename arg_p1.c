@@ -1,31 +1,16 @@
-#include <fcntl.h>
-#include "libft/libft.h"
-#include "memory.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arg_p1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wgerdur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 19:37:25 by wgerdur           #+#    #+#             */
+/*   Updated: 2021/10/11 19:37:28 by wgerdur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-/*char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	size_t	j;
-	char	*str;
-
-	str = (char *) malloc(sizeof(*s) * (len + 1));
-	if (!str)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		if (i >= start && j < len)
-		{
-			str[j] = s[i];
-			j++;
-		}
-		i++;
-	}
-	str[j] = 0;
-	return (str);
-}*/
 
 char	*ft_slesh(char *str, int *i)
 {
@@ -82,7 +67,7 @@ void	question_mark(t_mish_save *mish)
 	char	*tmp;
 
 	tmp = ft_itoa(mish->stat_buba);
-	exit_stat = 127;
+	g_es = 127;
 	ft_putstr_fd(tmp, 2);
 	ft_putstr_fd(": command not found\n", 2);
 	free(tmp);

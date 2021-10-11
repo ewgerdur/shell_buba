@@ -23,7 +23,7 @@ static int	num_checker(char *args)
 	return (0);
 }
 
-/*static int	exit_atoi(char *str)
+static int	exit_atoi(char *str)
 {
 	int			i;
 	int			minus;
@@ -41,7 +41,7 @@ static int	num_checker(char *args)
 	while (str[i])
 		num = (num * 10) + (str[i++] - '0');
 	return (num * minus);
-}*/
+}
 
 int	exit_mish(t_mish_save *mish, char **args)
 {
@@ -62,7 +62,7 @@ int	exit_mish(t_mish_save *mish, char **args)
 		return (1);
 	}
 	else if (ft_arrlen(args) == 2)
-		//exit(exit_atoi(args[1]));
+		exit(exit_atoi(args[1]));
 		exit(ft_atoi(args[1]));
 	return (0);
 }

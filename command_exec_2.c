@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command_exec_2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wgerdur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 19:28:31 by wgerdur           #+#    #+#             */
+/*   Updated: 2021/10/11 19:28:36 by wgerdur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	parsing_args(t_mish_save *mish, t_buba *lst)
 {
-	t_buba	*first;
+	t_buba		*first;
 	t_lst_args	*arg_lst;
 
 	first = lst;
@@ -78,7 +90,8 @@ void	go_comman(t_mish_save *mish, t_buba *lst)
 	el = lst;
 	signal_pipes();
 	parsing_args(mish, el);
-	while (el && exit_stat == 0)
+	//while (el && g_es == 0)
+	while (el)
 	{
 		get_arr(el);
 		if (el->next)
@@ -96,6 +109,5 @@ void	go_comman(t_mish_save *mish, t_buba *lst)
 			last_exec(mish, el);
 		el = el->next;
 	}
-	//pid_waiting(lst, el);
 	signal_first();
 }

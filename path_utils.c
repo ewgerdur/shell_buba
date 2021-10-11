@@ -35,7 +35,6 @@ static char	*multiple_path_check(char **paths, char **args)
 			ft_arrfree(paths);
 			return (start);
 		}
-		//close(fd);
 		free(start);
 		close(fd);
 		i++;

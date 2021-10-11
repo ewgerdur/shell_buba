@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command_exec.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wgerdur <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/11 19:26:51 by wgerdur           #+#    #+#             */
+/*   Updated: 2021/10/11 19:26:57 by wgerdur          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -40,7 +51,7 @@ void	ft_execut(t_mish_save *mish, t_buba *lst)
 		if (!name_check(lst))
 		{
 			name_exec_check(mish, lst);
-			exit(exit_stat);
+			exit(g_es);
 		}
 		else
 			exec_binary(mish, lst);
@@ -52,22 +63,22 @@ void	ft_execut(t_mish_save *mish, t_buba *lst)
 	if (lst->pid < 0)
 	{
 		err(0, "Fork problem: ");
-		exit_stat = 128;
+		g_es = 128;
 	}
 }
 
 void	ft_if(t_mish_save *mish, t_buba *lst)
 {
 	ft_execut(mish, lst);
-	if (exit_stat == 0)
+	if (g_es == 0)
 	{
 		waitpid(lst->pid, &mish->stat_exec, 0);
-		exit_stat = WEXITSTATUS(mish->stat_exec);
-		if (exit_stat == 0 && WIFSIGNALED(mish->stat_exec))
+		g_es = WEXITSTATUS(mish->stat_exec);
+		if (g_es == 0 && WIFSIGNALED(mish->stat_exec))
 		{
 			if (mish->stat_exec == 2 || mish->stat_exec == 3)
 				ft_putendl_fd("", 2);
-			exit_stat = 128 + WTERMSIG(mish->stat_exec);
+			g_es = 128 + WTERMSIG(mish->stat_exec);
 		}
 	}
 }
