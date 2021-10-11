@@ -125,7 +125,8 @@ char		*free_strings(char *tmp, char *str);
 char		*init_variables_pars(t_mish_save *mish, char *str,
 				int *i, int *count_args);
 char		*ft_sle2(t_mish_save *mish, char *str, int *i);
-int			ft_start_pars1(t_mish_save *mish, char *str, t_buba **head);
+int			ft_start_pars1(t_mish_save *mish, char *str,
+				t_buba **head, unsigned int part);
 int			k_search(char c);
 void		question_mark(t_mish_save *mish);
 char		*ft_sle(char *str, int *i);

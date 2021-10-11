@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **env)
 		if (str && ft_strlen(str) > 0)
 		{
 			add_history(str);
-			part = ft_start_pars1(&mish, str, &buba);
+			part = ft_start_pars1(&mish, str, &buba, part);
 			go_comman(&mish, buba);
 			mish.stat_buba = g_es;
 			clear_mem(buba);
